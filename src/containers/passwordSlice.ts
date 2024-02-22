@@ -25,7 +25,9 @@ export const passwordSlice = createSlice({
     check: (state) => {
       if (state.password === '1408') {
         state.accessGranted = true;
+        state.password = '';
       } else {
+        state.accessGranted = false;
         state.password = '';
       }
     },

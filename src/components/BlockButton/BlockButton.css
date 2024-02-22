@@ -1,0 +1,24 @@
+.btn-position{
+    position: relative;
+}
+
+.button-block{
+    position: absolute;
+    top: 100px;
+    right: -5px;
+    width: 5px;
+    height: 50px;
+    border-radius: 0 5px 5px 0;
+    border: 1px solid white;
+    transition: 0.1s;
+}
+
+.button-block:hover{
+    box-shadow: 1px 1px 5px white;
+}
+
+.button-block:active{
+    right: -4px;
+    width: 4px;
+    transition: 0.1s;
+}

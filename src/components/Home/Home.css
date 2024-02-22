@@ -1,0 +1,28 @@
+.home-screen{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url(../../assets/firewatch.jpg) center;
+    background-size: cover;
+}
+
+.apps-inner{
+    margin: auto 0;
+    display: grid;
+    grid-template-columns: repeat(4, 50px);
+    grid-template-rows: repeat(6, 50px);
+    gap: 25px;
+}
+
+.app{
+    border: 1px solid transparent;
+    border-radius: 15px;
+    background: transparent;
+}
+
+.app-calculator{
+    background: url(../../assets/calculator-icon.png);
+    background-size: contain;
+}

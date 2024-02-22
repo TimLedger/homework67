@@ -1,0 +1,58 @@
+.password {
+    height: 100%;
+    width: 100%;
+    z-index: 30;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url(../../assets/deer.jpg) center;
+    background-size: cover;
+}
+  
+.password-screen {
+    height: 50%;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-time{
+    font-size: 60px;
+}
+
+.password-value {
+    font-size: 24px;
+    height: 15px;
+}
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(4, 50px);
+    gap: 5px;
+}
+
+.keyboard button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    background: radial-gradient(#b7b7b7, transparent);
+}
+
+.keyboard button:hover {
+    background-color: #7e7e7e;
+}
+
+.keyboard button:active {
+    background-color: #ffffff;
+}
