@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { calculatorReducer } from '../containers/calculatorSlice';
+import { passwordReducer } from '../containers//passwordSlice';
 
 export const store = configureStore({
   reducer: {
-    calculator: calculatorReducer
+    calculator: calculatorReducer,
+    password: passwordReducer,
   },
 });
 
