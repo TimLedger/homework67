@@ -23,22 +23,33 @@ export const calculatorSlice = createSlice({
       state.value = '0'; 
     },
     addNumber: (state, action: PayloadAction<string>) => {
-      const lastChar = state.value[state.value.length - 1];
+      const lastChar = state.value[state.value.length - 1];      
       const isLastOperator = ['+', '-', '*', '/'].includes(lastChar);
       const penultOperator = ['+', '-', '*', '/'].includes(state.value[state.value.length - 2]);
       const enterOperator = ['+', '-', '*', '/'].includes(action.payload);
-      const enterNumber = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(action.payload);
-
-      if (state.value === '0' && enterOperator) {
+      const dotIndex = state.value.lastIndexOf('.');
+      const operatorIndex = state.value.search(/[\+\-\*\/]/g);
+    
+      if (state.value === '0' && (enterOperator || action.payload === '.')) {
         state.value += action.payload;
-      } else if ((state.value === '0' || isLastOperator && enterOperator) || (lastChar === '0' && penultOperator && enterNumber)) {
+      } else if ((state.value === '0' || lastChar === '0' && penultOperator || isLastOperator) && action.payload === '00') {
+        return;
+      } else if ((state.value === '0' || isLastOperator && enterOperator) || (lastChar === '.' && enterOperator)) {
         state.value = state.value.slice(0, -1);
         state.value += action.payload;
+      } else if (action.payload === '.' && isLastOperator) {
+        state.value += '0' + action.payload;
+      } else if (action.payload === '.') {
+        
+        if (dotIndex === -1 || (dotIndex < operatorIndex)) {
+          state.value += action.payload;
+        } else {
+          return;
+        }
       } else {
         state.value += action.payload;
       }
     },
-    
     count: (state) => {
       state.value = eval(state.value);
     },
@@ -47,4 +58,4 @@ export const calculatorSlice = createSlice({
 
 
 export const calculatorReducer = calculatorSlice.reducer;
-export const {deleteLastSymbol, addNumber, count} = calculatorSlice.actions;
+export const {deleteLastSymbol, deleteAll, addNumber, count} = calculatorSlice.actions;
