@@ -1,26 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface CalculatorState {
-  value: number;
+  value: string;
 };
 
 const initialState: CalculatorState = {
-  value: 0,
+  value: '',
 };
 
 export const calculatorSlice = createSlice({
   name: 'calculator',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value++;
+    deleteLastSymbol: (state) => {
+      state.value = state.value.slice(0, -1);
     },
-    decrement: (state) => {
-      state.value--;
+    addNumber: (state, action: PayloadAction<number>) => {
+      state.value += action.payload;
     },
   }
 });
 
 
 export const calculatorReducer = calculatorSlice.reducer;
-export const {increment, decrement} = calculatorSlice.actions;
+export const {deleteLastSymbol, addNumber} = calculatorSlice.actions;
