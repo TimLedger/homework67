@@ -15,12 +15,15 @@ export const calculatorSlice = createSlice({
     deleteLastSymbol: (state) => {
       state.value = state.value.slice(0, -1);
     },
-    addNumber: (state, action: PayloadAction<number>) => {
+    addNumber: (state, action: PayloadAction<string>) => {
       state.value += action.payload;
+    },
+    count: (state) => {
+      state.value = eval(state.value);
     },
   }
 });
 
 
 export const calculatorReducer = calculatorSlice.reducer;
-export const {deleteLastSymbol, addNumber} = calculatorSlice.actions;
+export const {deleteLastSymbol, addNumber, count} = calculatorSlice.actions;
