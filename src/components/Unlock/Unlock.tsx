@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/store';
-import { deleteLastSymbol, setPassword, check } from '../../containers/passwordSlice';
+import { deleteLastSymbol, setPassword, check, update } from '../../containers/passwordSlice';
 import { useNavigate } from 'react-router-dom';
 import './Unlock.css';
 
@@ -9,19 +9,20 @@ const Unlock: React.FC = () => {
   const navigate = useNavigate();
   const password = useSelector((state: RootState) => state.password.password);
   const accessGranted = useSelector((state: RootState) => state.password.accessGranted);
+  const [currentTime, setCurrentTime] = useState<Date>(new Date());
+  const time = currentTime.getHours().toString().padStart(2, '0') + ':' + currentTime.getMinutes().toString().padStart(2, '0');
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (accessGranted) {
       navigate('/home');
+      dispatch(update())
     }
   }, [accessGranted, navigate]);
     
   const hideDigits = (text: string) => {
     return text.replace(/\d/g, '*');
   };
-
-  const [currentTime, setCurrentTime] = useState<Date>(new Date());
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -31,13 +32,13 @@ const Unlock: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const time = currentTime.getHours().toString().padStart(2, '0') + ':' + currentTime.getMinutes().toString().padStart(2, '0');
 
   return (
     <div className='password'>
         <div className="password-screen">
             <span className="password-time">{time}</span>
-            <h1 className='password-value'>{hideDigits(password)}</h1>
+            <span className={`access-granted ${accessGranted === false ? 'access-denied' : ''}`}>{accessGranted === false ? 'Неверный пароль' : ''}</span>
+            <span className='password-value'>{hideDigits(password)}</span>
         </div>
         <div className='keyboard'>
             <button onClick={() => dispatch(setPassword('1'))}>1</button>

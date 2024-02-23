@@ -2,12 +2,12 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface PasswordState {
   password: string;
-  accessGranted: boolean;
+  accessGranted: boolean | null;
 }
 
 const initialState: PasswordState = {
   password: '',
-  accessGranted: false,
+  accessGranted: null,
 };
 
 export const passwordSlice = createSlice({
@@ -20,6 +20,7 @@ export const passwordSlice = createSlice({
     setPassword: (state, action: PayloadAction<string>) => {
       if (state.password.length < 4) {
         state.password += action.payload;
+        state.accessGranted = null;
       } 
     },
     check: (state) => {
@@ -31,8 +32,11 @@ export const passwordSlice = createSlice({
         state.password = '';
       }
     },
+    update: (state) => {
+        state.accessGranted = null;
+    },
   },
 });
 
 export const passwordReducer = passwordSlice.reducer;
-export const { deleteLastSymbol, setPassword, check } = passwordSlice.actions;
+export const { deleteLastSymbol, setPassword, check, update } = passwordSlice.actions;
